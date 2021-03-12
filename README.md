@@ -10,7 +10,6 @@ edit the `.env` if needed, then run:
 ```
 docker-compose up -d
 ```
-Then browse to your server's IP
 
 ## Containers
 

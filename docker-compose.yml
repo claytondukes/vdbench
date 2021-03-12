@@ -5,7 +5,7 @@ services:
     image: grafana/grafana
     container_name: grafana
     user: root
-    restart: always
+    restart: unless-stopped
     network_mode: "host"
     volumes:
       - $PWD/grafana:/var/lib/grafana

@@ -1,6 +1,3 @@
-grafana
-influxdb
-graphite
 results
 *.log
 tmp/*
