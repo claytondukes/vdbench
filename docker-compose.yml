@@ -1,0 +1,35 @@
+---
+version: "3.8"
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    user: root
+    restart: always
+    network_mode: "host"
+    volumes:
+      - $PWD/grafana:/var/lib/grafana
+  graphite:
+    image: graphiteapp/graphite-statsd
+    container_name: graphite
+    network_mode: "host"
+    volumes:
+      - $PWD/graphite/conf:/opt/graphite/conf
+      - $PWD/graphite/storage:/opt/graphite/storage
+      - $PWD/graphite/storage/log/webapp:/opt/graphite/storage/log/webapp
+    restart: unless-stopped
+  influxdb:
+    image: influxdb
+    container_name: influxdb
+    user: root
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - $PWD/influxdb:/var/lib/influxdb
+    environment:
+      INFLUXDB_DB: ${INFLUXDB_NAME}
+      INFLUXDB_USER: ${INFLUXDB_USER}
+      INFLUXDB_PASS: ${INFLUXDB_PASS}
+      INFLUXDB_ADMIN_ENABLED: "true"
+      INFLUXDB_ADMIN_USER: ${INFLUXDB_ADMIN_USER}
+      INFLUXDB_ADMIN_PASSWORD: ${INFLUXDB_ADMIN_PASSWORD}

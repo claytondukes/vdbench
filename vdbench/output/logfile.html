@@ -1,0 +1,58 @@
+<title>Vdbench output/logfile.html</title><pre>
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+Vdbench distribution: vdbench50407
+
+10:16:41.490 input argument scanned: 'gui'
+10:16:41.491 
+10:16:41.491 Invalid execution parameter: 'gui'
+10:16:41.491 
+10:16:41.491  usage: 
+10:16:41.491  ./vdbench [compare] [-f xxx] [-o xxx] [-e nn] [-i nn] [-j] [-jr] [-v] [-vq] [-s] [-k] [- "parmfile parameters"]
+10:16:41.491  
+10:16:41.491  '-f xxx': Workload parameter file name(s). Default 'parmfile' in current directory
+10:16:41.491  '-o xxx': Output directory for reporting. Default 'output' in current directory
+10:16:41.492  '-e nn':  Override elapsed=seconds. 
+10:16:41.492  '-i nn':  Override interval=seconds. 
+10:16:41.492  '-v':     Activate Data validation. 
+10:16:41.492  '-vq':    Activate Data validation, validate lba and data key (saves cpu) 
+10:16:41.492  '-j':     Activate Data validation with Journaling. 
+10:16:41.492  '-jr':    Recover existing Journal, Validate data and run workload 
+10:16:41.492  '-s':     Simulate execution. Do everything but I/O. 
+10:16:41.492  '-k':     Solaris only: Report kstat statistics on console. 
+10:16:41.492  
+10:16:41.492  
+10:16:41.492                                                                                    
+10:16:41.492 *example 1 parameter file contents, execute 'vdbench -f example1'                  
+10:16:41.492 *Single raw disk, 100% random read of 4k records at i/o rate of 100 for 10 seconds 
+10:16:41.492                                                                                    
+10:16:41.492 *SD:    Storage Definition                                                         
+10:16:41.492 *WD:    Workload Definition                                                        
+10:16:41.492 *RD:    Run Definition                                                             
+10:16:41.493 *                                                                                  
+10:16:41.493 sd=sd1,lun=/dev/rdsk/cxt0d0s0                                                      
+10:16:41.493 wd=wd1,sd=sd1,xfersize=4096,readpct=100                                            
+10:16:41.493 rd=run1,wd=wd1,iorate=100,elapsed=10,interval=1                                    
+10:16:41.493                                                                                    
+10:16:41.493                                                                                    
+10:16:41.493                                                                                    
+10:16:41.493 *example 2 parameter file contents, execute 'vdbench -f example2'                  
+10:16:41.493 *Two raw disks:                                                      
+10:16:41.493 *sd1 does 80 i/o's per second, read-to-write ratio 4:1, 4k records.  
+10:16:41.493 *sd2 does 120 i/o's per second, 100% write at 8k records.            
+10:16:41.493                                                                      
+10:16:41.493 sd=sd1,lun=/dev/rdsk/cxt0d0s0                                        
+10:16:41.493 sd=sd2,lun=/dev/rdsk/cxt0d1s0                                        
+10:16:41.493 wd=wd1,sd=sd1,xfersize=4k,readpct=80,skew=40                         
+10:16:41.493 wd=wd2,sd=sd2,xfersize=8k,readpct=0                                  
+10:16:41.493 rd=run1,wd=wd*,iorate=200,elapsed=10,interval=1                      
+10:16:41.494                                                                      
+10:16:41.494                                                                      
+10:16:41.494 For documentation, browse file 'vdbench.pdf' 
+10:16:41.997 
+10:16:41.997 Invalid execution parameter: 'gui'
+10:16:41.997 
+java.lang.RuntimeException: Invalid execution parameter: 'gui'
+	at Vdb.common.failure(common.java:350)
+	at Vdb.Vdbmain.scan_args(Vdbmain.java:446)
+	at Vdb.Vdbmain.check_args(Vdbmain.java:285)
+	at Vdb.Vdbmain.main(Vdbmain.java:588)

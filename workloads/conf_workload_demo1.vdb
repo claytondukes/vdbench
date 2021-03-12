@@ -1,0 +1,96 @@
+* 7/27/17 Arne L: Updated for Flash Summit demo1
+
+* Deduplication parameters section- Desired deduplication and compression ratios
+*dedupratio=6
+*dedupunit=4k
+*compratio=4
+
+* Host definitions
+* hd=default,user=root,shell=ssh,jvms=8
+hd=default,user=root,shell=ssh,vdbench=/opt/vdbench/current,jvms=12
+* jvms=12
+
+* Testing with just local host
+include=conf_hosts.vdb
+*hd=d32,system=d32
+
+* Storage definitions
+sd=default,openflags=o_direct,range=(1,100)
+*sd=default,openflags=o_direct,range=(1,80)
+include=conf_drives.vdb
+* d30 - as block devices
+*sd=sd0,host=d30,lun=/dev/ads0a0s0n1
+*sd=sd1,host=d30,lun=/dev/ads0a0s3n1
+
+****** Workload definitions:
+** 4 Host
+*wd=wd_4h_default,sd=*
+*Actual test workload running 4 different block sizes simultaneously, in a certain proportion, totaling 100%.
+*Note: When using deduplication engine, specified block sizes must be a multiple of dedupunit block size.
+wd=wd_4h_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=sd*
+wd=wd_4h_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=sd*
+wd=wd_4h_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=sd*
+
+** 3 Host
+*wd=wd_3h_default,sd=(sd16,sd17,sd18,sd19,sd20,sd21)
+*Actual test workload running 4 different block sizes simultaneously, in a certain proportion, totaling 100%.
+*Note: When using deduplication engine, specified block sizes must be a multiple of dedupunit block size.
+wd=wd_3h_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11,sd12,sd13,sd14,sd15,sd16,sd17,sd18,sd19)
+wd=wd_3h_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11,sd12,sd13,sd14,sd15,sd16,sd17,sd18,sd19)
+wd=wd_3h_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=(sd08,sd09,sd10,sd11,sd12,sd13,sd14,sd15,sd16,sd17,sd18,sd19)
+
+** 2 Host
+*wd=wd_2h_default,sd=(sd16,sd17,sd18,sd19)
+*Actual test workload running 4 different block sizes simultaneously, in a certain proportion, totaling 100%.
+*Note: When using deduplication engine, specified block sizes must be a multiple of dedupunit block size.
+wd=wd_2h_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11,sd12,sd13,sd14,sd15)
+wd=wd_2h_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11,sd12,sd13,sd14,sd15)
+wd=wd_2h_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=(sd08,sd09,sd10,sd11,sd12,sd13,sd14,sd15)
+
+** 1 Host
+*wd=wd_1h_default,sd=(sd16,sd17)
+*Actual test workload running 4 different block sizes simultaneously, in a certain proportion, totaling 100%.
+*Note: When using deduplication engine, specified block sizes must be a multiple of dedupunit block size.
+wd=wd_1h_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11)
+wd=wd_1h_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11)
+wd=wd_1h_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=(sd08,sd09,sd10,sd11)
+
+
+*** Configs for 1 host at the time
+** d34
+*wd=wd_d34_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11)
+*wd=wd_d34_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=(sd08,sd09,sd10,sd11)
+*wd=wd_d34_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=(sd08,sd09,sd10,sd11)
+** d35
+*wd=wd_d35_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=(sd12,sd13,sd14,sd15)
+*wd=wd_d35_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=(sd12,sd13,sd14,sd15)
+*wd=wd_d35_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=(sd12,sd13,sd14,sd15)
+** d36
+*wd=wd_d36_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=(sd16,sd17,sd18,sd19)
+*wd=wd_d36_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=(sd16,sd17,sd18,sd19)
+*wd=wd_d36_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=(sd16,sd17,sd18,sd19)
+** d39
+*wd=wd_d39_152KB,rdpct=70,xfersize=(152K),seekpct=100,skew=41,sd=(sd20,sd21,sd22,sd23)
+*wd=wd_d39_52KB,rdpct=70,xfersize=(52K),seekpct=100,skew=41,sd=(sd20,sd21,sd22,sd23)
+*wd=wd_d39_4KB,rdpct=70,xfersize=(4K),seekpct=100,skew=18,sd=(sd20,sd21,sd22,sd23)
+
+
+
+*Run Definitions
+*Actual test workload.  Threads can be adjusted higher to favor IOPs or lower to favor Latency.
+
+* The following to add server by server
+***************************************
+rd=rd_1h,wd=wd_1h*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(12)
+rd=rd_2h,wd=wd_2h*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(12)
+rd=rd_3h,wd=wd_3h*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(12)
+rd=rd_4h,wd=wd_4h*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(12)
+
+
+* The following to run server by server, one by one
+***************************************************
+*rd=rd_d34,wd=wd_d34*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(4)
+*rd=rd_d35,wd=wd_d35*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(4)
+*rd=rd_d36,wd=wd_d36*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(4)
+*rd=rd_d39,wd=wd_d39*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(4)
+

@@ -1,0 +1,44 @@
+******** Host Definitions ********
+hd=default,user=root,shell=ssh,jvms=16,vdbench=/lzcorp/Labs/whiterook/test/vdbench/vdbench
+hd=ape,system=ape.logzilla.lab
+hd=ape2,system=ape2.logzilla.lab
+hd=ape3,system=ape3.logzilla.lab
+
+******** Drives ********
+sd=default,openflags=o_direct,range=(1,100),threads=16
+**** ape
+sd=sd18,host=ape,lun=/dev/ads0a0s18n1
+sd=sd01,host=ape,lun=/dev/ads0a0s1n1
+sd=sd21,host=ape,lun=/dev/ads0a0s21n1
+sd=sd02,host=ape,lun=/dev/ads0a0s2n1
+sd=sd03,host=ape,lun=/dev/ads0a0s3n1
+sd=sd07,host=ape,lun=/dev/ads0a0s7n1
+
+**** ape2
+sd=sd13,host=ape2,lun=/dev/ads0a0s13n1
+sd=sd14,host=ape2,lun=/dev/ads0a0s14n1
+sd=sd15,host=ape2,lun=/dev/ads0a0s15n1
+sd=sd16,host=ape2,lun=/dev/ads0a0s16n1
+sd=sd19,host=ape2,lun=/dev/ads0a0s19n1
+sd=sd22,host=ape2,lun=/dev/ads0a0s22n1
+sd=sd23,host=ape2,lun=/dev/ads0a0s23n1
+**** ape3
+sd=sd10,host=ape3,lun=/dev/ads0a0s10n1
+sd=sd04,host=ape3,lun=/dev/ads0a0s4n1
+sd=sd63,host=ape3,lun=/dev/ads0a0s6n1
+sd=sd08,host=ape3,lun=/dev/ads0a0s8n1
+sd=sd11,host=ape3,lun=/dev/ads1a0s11n1
+sd=sd05,host=ape3,lun=/dev/ads1a0s5n1
+sd=sd09,host=ape3,lun=/dev/ads1a0s9n1
+
+******** Workloads ********
+wd=default,rdpct=70,seekpct=100,xfersize=(4K),sd=sd*
+* wd=wd1,xfersize=(152K),skew=1
+* wd=wd2,xfersize=(52K),skew=1
+wd=wd3,rdpct=70,xfersize=(4K)
+
+******** Run Definitions ********
+* Threads can be adjusted higher to favor IOPs or lower to favor Latency.
+rd=rd1,wd=wd*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(24)
+rd=rd2,wd=wd*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(24)
+rd=rd3,wd=wd*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(24)
