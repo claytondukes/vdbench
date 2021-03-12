@@ -1,0 +1,52 @@
+******** Host Definitions ********
+hd=default,user=root,shell=ssh,jvms=32,vdbench=/root/vdbench/vdbench
+hd=local,system=localhost
+
+******** Drives ********
+sd=default,openflags=o_direct,range=(1,100),threads=16
+
+**** local
+sd=sd0,host=local,lun=/dev/nvme0n1
+sd=sd1,host=local,lun=/dev/nvme1n1
+sd=sd2,host=local,lun=/dev/nvme2n1
+sd=sd3,host=local,lun=/dev/nvme3n1
+sd=sd4,host=local,lun=/dev/nvme4n1
+sd=sd5,host=local,lun=/dev/nvme5n1
+sd=sd6,host=local,lun=/dev/nvme6n1
+sd=sd7,host=local,lun=/dev/nvme7n1
+sd=sd8,host=local,lun=/dev/nvme8n1
+sd=sd9,host=local,lun=/dev/nvme9n1
+sd=sd10,host=local,lun=/dev/nvme10n1
+sd=sd11,host=local,lun=/dev/nvme11n1
+sd=sd12,host=local,lun=/dev/nvme12n1
+sd=sd13,host=local,lun=/dev/nvme13n1
+sd=sd14,host=local,lun=/dev/nvme14n1
+sd=sd15,host=local,lun=/dev/nvme15n1
+sd=sd16,host=local,lun=/dev/nvme16n1
+sd=sd17,host=local,lun=/dev/nvme17n1
+sd=sd18,host=local,lun=/dev/nvme18n1
+sd=sd19,host=local,lun=/dev/nvme19n1
+sd=sd20,host=local,lun=/dev/nvme20n1
+sd=sd22,host=local,lun=/dev/nvme22n1
+sd=sd23,host=local,lun=/dev/nvme23n1
+sd=sd24,host=local,lun=/dev/nvme24n1
+sd=sd25,host=local,lun=/dev/nvme25n1
+sd=sd26,host=local,lun=/dev/nvme26n1
+sd=sd27,host=local,lun=/dev/nvme27n1
+sd=sd28,host=local,lun=/dev/nvme28n1
+sd=sd29,host=local,lun=/dev/nvme29n1
+sd=sd30,host=local,lun=/dev/nvme30n1
+sd=sd31,host=local,lun=/dev/nvme31n1
+sd=sd32,host=local,lun=/dev/nvme32n1
+
+******** Workloads ********
+wd=default,rdpct=70,seekpct=100,xfersize=(4K),sd=sd*
+* wd=wd1,xfersize=(152K),skew=1
+* wd=wd2,xfersize=(52K),skew=1
+wd=wd3,rdpct=70,xfersize=(4K)
+
+******** Run Definitions ********
+* Threads can be adjusted higher to favor IOPs or lower to favor Latency.
+rd=rd1,wd=wd*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(24)
+rd=rd2,wd=wd*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(24)
+rd=rd3,wd=wd*,iorate=max,interval=1,elapsed=1h,maxdata=999t,warmup=10,forthreads=(24)
