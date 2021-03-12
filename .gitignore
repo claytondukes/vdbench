@@ -1,4 +1,7 @@
 results
+*.swp
 *.log
 tmp/*
 tmp2/*
+grafana/grafana.db
+graphite/storage/*
